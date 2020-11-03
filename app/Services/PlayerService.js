@@ -1,24 +1,42 @@
-import store from "../store.js";
-import Player from "../Models/Player.js";
+// import store from "../store.js";
+// import Player from "../Models/Player.js";
+
+import store from "../store.js"
+import Player from "../Models/Player.js"
+
 
 let _sandBox = axios.create({
   baseURL: "//bcw-sandbox.herokuapp.com/api/nflplayers"
 });
 //NOTE these functions are above the class to be private because they are never called in another file
 /**Attempts to loadplayers with the key("allPlayers") from local storage, if local storage doesnt return anything, it will do a get request to the bcw-sandbox to retrieve players and save them in local storage*/
+// async function getNFLData() {
+//   try {
+//     let players = loadPlayers("allPlayers");
+//     if (!players.length) {
+//       let res = await _sandBox.get();
+//       players = res.data.body.players.map(p => new Player(p));
+//       savePlayers("allPlayers", players);
+//     }
+//     return players;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
 async function getNFLData() {
   try {
-    let players = loadPlayers("allPlayers");
+    let players = loadPlayers("allPlayers")
     if (!players.length) {
-      let res = await _sandBox.get();
-      players = res.data.body.players.map(p => new Player(p));
-      savePlayers("allPlayers", players);
+      let res = await _sandBox.get()
+      players = res.data.body.players.map(p => new Player(p))
+      savePlayers("allPlayers", players)
     }
-    return players;
-  } catch (error) {
-    console.error(error);
   }
 }
+
+
+
 /**
  * Saves team to local storage with key of teamname and value of players
  * @param {String} teamName string name of the team to save
